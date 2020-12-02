@@ -1,17 +1,15 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"log"
-	"os"
+	"meruem/CodeAdvent2020/utils"
 	"strconv"
 )
 
 func main() {
 	filePath := "./Input/Input01.txt"
 	target := 2020
-	lines := readLines(filePath)
+	lines := utils.ReadLines(filePath)
 	inputs := make([]int, len(lines))
 	for i, line := range lines {
 		inputs[i], _ = strconv.Atoi(line)
@@ -34,24 +32,4 @@ func main() {
 			}
 		}
 	}
-}
-
-func readLines(fileName string) []string {
-	res := make([]string, 0)
-	file, err := os.Open(fileName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		res = append(res, scanner.Text())
-	}
-
-	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-	}
-
-	return res
 }

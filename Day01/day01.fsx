@@ -1,4 +1,3 @@
-open System
 open System.IO
 
 let filePath = "./Input/Input01.txt"
