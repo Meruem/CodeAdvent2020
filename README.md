@@ -3,7 +3,6 @@ Code Advent 2020
 
 ## Go
 ``` shell
-go run ./...
 go run ./Day01/day01.go
 ```
 
