@@ -8,7 +8,7 @@ let chooseRange useLower (min, max) =
     let size = max - min + 1
     let mid = min + size / 2 
     if useLower then 
-        min, mid
+        min, (mid - 1)
     else 
         mid, max    
 
@@ -36,7 +36,7 @@ let res =
 let res1 = List.max res
 
 let resSet = res |> Set.ofList
-let res2 = [1..128*8-1] |> List.filter( fun i -> not (resSet.Contains i) && resSet.Contains (i-1) && resSet.Contains (i+1))
+let res2 = [1..128*8-1] |> List.find( fun i -> not (resSet.Contains i) && resSet.Contains (i-1) && resSet.Contains (i+1))
 
 printfn ("5_1: %d") res1
-printfn ("5_2: %d") res2.[0]
+printfn ("5_2: %d") res2
