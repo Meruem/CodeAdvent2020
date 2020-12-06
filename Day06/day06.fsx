@@ -3,25 +3,25 @@ open System.IO
 let filePath = "./Input/Input06.txt"
 let file = File.ReadLines(filePath)
 
+let splitBy element lst =
+    let folder  line acc =
+        let current, result = acc
+        if line = element then ([], current :: result)
+        else (line :: current, result)
+    let (current, partResult) =
+        List.foldBack folder lst ([],[])
+    current :: partResult
+
 let input = file |> List.ofSeq
 
-let opOnSets op (set: Set<char> option) (str: string) =
-   let newSet = Set.ofSeq str
-   match set with
-   | Some s -> Some (op s newSet)
-   | None -> Some newSet
-
-let countSetOperationItems op ((count: int), (charSet: Set<char> option)) line = 
-    if line = "" then
-        (count + charSet.Value.Count, None)
-    else
-        (count, opOnSets op charSet line)
-
-let res op input = 
-    let (parRes, charSet) = 
-        input
-        |> List.fold (countSetOperationItems op) (0, None)  
-    parRes + charSet.Value.Count
+let res operation input =
+    input 
+    |> splitBy ""
+    |> List.sumBy (fun group -> 
+        (group
+        |> List.map Set.ofSeq
+        |> List.reduce operation
+        ).Count)             
 
 let res1 = res Set.union input
 let res2 = res Set.intersect input
