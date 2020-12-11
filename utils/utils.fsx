@@ -13,3 +13,23 @@ module Utils
                 for j in [i+1..inputs.Length-1] do
                     if inputs.[i] + inputs.[j] = target then yield (inputs.[i], inputs.[j]) }
 
+    let getContigousSublistWithSum target min (input: int64 list) =
+      [ let mutable sum = int64 0
+        for i in [min..input.Length-1] do
+            sum <- sum + input.[i]
+            if sum = target then yield input.[min..i] ]
+
+    let getAllSublistsWithSum target (input: int64 list) =
+        [for i in 0..input.Length-1 do
+            let res = getContigousSublistWithSum target i input
+            if res <> [] then yield res |> List.collect id]
+
+    let splitBy element lst =
+        let folder  line acc =
+            let current, result = acc
+            if line = element then ([], current :: result)
+            else (line :: current, result)
+        let (current, partResult) =
+            List.foldBack folder lst ([],[])
+        current :: partResult
+
