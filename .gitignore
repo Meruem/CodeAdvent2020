@@ -17,3 +17,5 @@
 .history/
 
 /.ionide/symbolCache.db
+.fake
+.ionide

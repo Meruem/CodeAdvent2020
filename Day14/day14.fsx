@@ -9,8 +9,8 @@ let parseMaskLine (line: string) =
     let (andMask, orMask, flucts, _) =
         Seq.foldBack (fun ch (andMask, orMask, flucts, i) -> 
             match ch with
-            | '0' -> (andMask ^^^ (pown 2L i), orMask, flucts, i + 1)
-            | '1' -> (andMask, orMask ||| (pown 2L i), flucts, i + 1)
+            | '0' -> (andMask ^^^ (1L <<< i), orMask, flucts, i + 1)
+            | '1' -> (andMask, orMask ||| (1L <<< i), flucts, i + 1)
             |  _ -> (andMask, orMask, i :: flucts, i + 1)) 
             line (max, 0L, [], 0)
     andMask, orMask, flucts
